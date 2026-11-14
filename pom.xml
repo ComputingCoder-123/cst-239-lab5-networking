@@ -42,6 +42,50 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.15.0</version>
             </plugin>
+            <!-- Create the executable server JAR. -->
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-shade-plugin</artifactId>
+            <version>3.6.2</version>
+            <executions>
+                <execution>
+                    <id>server-jar</id>
+                    <phase>package</phase>
+                    <goals>
+                        <goal>shade</goal>
+                    </goals>
+                    <configuration>
+                        <shadedArtifactAttached>true</shadedArtifactAttached>
+                        <shadedClassifierName>server</shadedClassifierName>
+                        <createDependencyReducedPom>false</createDependencyReducedPom>
+                        <transformers>
+                            <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                                <mainClass>edu.gcu.cst239.kabwe.elijah.lab5.server.Server</mainClass>
+                            </transformer>
+                        </transformers>
+                    </configuration>
+                </execution>
+
+                <!-- Create the executable client JAR. -->
+                <execution>
+                    <id>client-jar</id>
+                    <phase>package</phase>
+                    <goals>
+                        <goal>shade</goal>
+                    </goals>
+                    <configuration>
+                        <shadedArtifactAttached>true</shadedArtifactAttached>
+                        <shadedClassifierName>client</shadedClassifierName>
+                        <createDependencyReducedPom>false</createDependencyReducedPom>
+                        <transformers>
+                            <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                                <mainClass>edu.gcu.cst239.kabwe.elijah.lab5.client.Client</mainClass>
+                            </transformer>
+                        </transformers>
+                    </configuration>
+                </execution>
+            </executions>
+        </plugin>
         </plugins>
     </build>
 
